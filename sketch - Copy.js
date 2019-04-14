@@ -10,27 +10,20 @@ var usernameField;
 var addressField;
 var controlArray = new Array(); // array of light control divs
 
-// Sound
-var mic;
-var soundLevel;
-
 function setup() {
   createCanvas(400, 400);
   resetRecog();
-
-  mic = new p5.AudioIn();
-  mic.start();
-
+  
   var addressLabel, nameLabel, connectButton;
-  //noCanvas();
+  noCanvas();
   // set up the address and username fields:
   addressField = createInput('text');
   addressLabel = createSpan("IP address:");
-  addressLabel.position(10, 10);
+  addressLabel.position(10,10);
   addressField.position(100, 10);
   usernameField = createInput('text');
   nameLabel = createSpan("user name:");
-  nameLabel.position(10, 40);
+  nameLabel.position(10,40);
   usernameField.position(100, 40);
   usernameField.value(username);
   addressField.value(url);
@@ -43,58 +36,18 @@ function setup() {
 
 function draw() {
   background(220);
-  if (mic) {
-    soundLevel = mic.getLevel();
-  }
-  ellipse(30, 30, soundLevel * 100);
-  //console.log(soundLevel);
 }
 
 function gotRecogResult() {
   console.log(recog.resultString);
   if (recog.resultString.includes("Sun rise") || recog.resultString.includes("Sun rises") || recog.resultString.includes("sunrise")) {
-    setLight("4", { "bri": 255 }, 'state');
-  }
+    setLight("4", {"bri":255}, 'state');
+  } 
 
   if (recog.resultString.includes("Sun set") || recog.resultString.includes("Sun sets") || recog.resultString.includes("sunset")) {
-    setLight("4", { "bri": 0 }, 'state');
-  }
+    setLight("4", {"bri":0}, 'state');
+  } 
 
-  if (recog.resultString.includes("bird") || recog.resultString.includes("Birds")) {
-    let hueValue = 202 * 180;
-    setLight("4", { "hue": hueValue }, 'state');
-    setLight("5", { "hue": hueValue }, 'state');
-  }
-
-  if (recog.resultString.includes("orange") || recog.resultString.includes("Orange")) {
-    let hueValue = 48 * 180;
-    setLight("4", { "hue": hueValue }, 'state');
-    setLight("5", { "hue": hueValue }, 'state');
-  }
-
-  if (recog.resultString.includes("red") || recog.resultString.includes("Red")) {
-    let hueValue = 356 * 180;
-    setLight("4", { "hue": hueValue }, 'state');
-    setLight("5", { "hue": hueValue }, 'state');
-  }
-
-  if (recog.resultString.includes("yellow") || recog.resultString.includes("Yellow")) {
-    let hueValue = 59 * 180;
-    setLight("4", { "hue": hueValue }, 'state');
-    setLight("5", { "hue": hueValue }, 'state');
-  }
-
-  if (recog.resultString.includes("pink") || recog.resultString.includes("Pink")) {
-    let hueValue = 305 * 180;
-    setLight("4", { "hue": hueValue }, 'state');
-    setLight("5", { "hue": hueValue }, 'state');
-  }
-
-  if (recog.resultString.includes("my day")) {
-    let hueValue = 42 * 180;
-    setLight("4", { "hue": hueValue }, 'state');
-    setLight("5", { "hue": hueValue }, 'state');
-  }
 }
 
 function resetRecog() {
@@ -105,7 +58,6 @@ function resetRecog() {
   recog.start();
   lastResetRecogTime = millis();
   console.log("recog reset at:" + lastResetRecogTime);
-
 }
 
 
@@ -180,15 +132,15 @@ function createControl(thisLight, thisDiv) {
         xIndent = 100;
         break;
       case 'hue':
-        myInput = createSlider(0, 65535, state.hue);	// a slider for hue
+        myInput = createSlider(0, 65535,state.hue);	// a slider for hue
         myInput.mouseReleased(changeProperty); // set the mouseClicked callback
         break;
       case 'sat':
-        myInput = createSlider(0, 254, state.sat);		// a slider for saturation
+        myInput = createSlider(0, 254,state.sat);		// a slider for saturation
         myInput.mouseReleased(changeProperty); // set the mouseClicked callback
         break;
       case 'ct':
-        myInput = createSlider(153, 500, state.ct);	// a slider for color temp
+        myInput = createSlider(153, 500,state.ct);	// a slider for color temp
         myInput.mouseReleased(changeProperty); // set the mouseClicked callback
         break;
       case 'colormode':
@@ -211,7 +163,7 @@ function createControl(thisLight, thisDiv) {
       y += 20;                          // increment the y position
     }
   }   // end of for-loop to create controls
-  thisDiv.size(250, y + 20);       // resize the div with a little padding
+  thisDiv.size(250, y+20);       // resize the div with a little padding
 }
 
 /*
@@ -219,10 +171,10 @@ function createControl(thisLight, thisDiv) {
   the request.
 */
 function changeName() {
-  var lightName = event.target.value;				// what did you click on?
-  var thisLight = event.target.parentNode.id;	// get the parent (light number)
-  var payload = { "name": lightName };        // form the name payload
-  setLight(thisLight, payload, 'name');     // make the HTTP call
+    var lightName = event.target.value;				// what did you click on?
+    var thisLight = event.target.parentNode.id;	// get the parent (light number)
+    var payload = {"name": lightName};        // form the name payload
+    setLight(thisLight, payload, 'name');     // make the HTTP call
 }
 
 /*
@@ -255,16 +207,10 @@ the properties of the lights
 function setLight(lightNumber, data, command) {
   var path = url + lightNumber + '/' + command;		// assemble the full URL
   var content = JSON.stringify(data);				 // convert JSON obj to string
-  httpDo(path, 'PUT', content, 'text', getResponse); //HTTP PUT the change
+  httpDo( path, 'PUT', content, 'text', getResponse); //HTTP PUT the change
 }
 
 function getResponse(response) {
   // show response:
   console.log(response);
-}
-
-function touchStarted() {
-  if (getAudioContext().state !== 'running') {
-    getAudioContext().resume();
-  }
 }

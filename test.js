@@ -12,7 +12,7 @@ var controlArray = new Array(); // array of light control divs
 
 // Sound
 var mic;
-var soundLevel = 0;
+var soundLevel;
 var pL = 0;
 
 function setup() {
@@ -44,11 +44,10 @@ function setup() {
 
 function draw() {
   background(220);
-  frameRate(10);
   if (mic) {
     soundLevel = mic.getLevel();
   }
-  ellipse(30, 30, soundLevel*100);
+  //ellipse(30, 30, soundLevel*100);
   if(soundLevel - pL > 0.1){
     setLight("5", {"bri":255}, 'state');
   }

@@ -50,16 +50,16 @@ function draw() {
   }
   ellipse(30, 30, soundLevel*100);
   if(soundLevel - pL > 0.1){
-    setLight("5", {"bri":255}, 'state');
+    setLight("6", {"bri":255}, 'state');
   }
   else if(soundLevel - pL > 0.05){
-    setLight("5", {"bri":150}, 'state');
+    setLight("6", {"bri":150}, 'state');
   }
   if((soundLevel - pL < -0.1) || soundLevel < 0.05){
-    setLight("5", {"bri":20}, 'state');
+    setLight("6", {"bri":20}, 'state');
   }
   else if((soundLevel - pL < -0.05) || soundLevel < 0.05){
-    setLight("5", {"bri":80}, 'state');
+    setLight("6", {"bri":80}, 'state');
   }
   pL = soundLevel;
 }
@@ -77,37 +77,37 @@ function gotRecogResult() {
   if (recog.resultString.includes("bird") || recog.resultString.includes("Birds")) {
     let hueValue = 202 * 180;
     setLight("4", { "hue": hueValue }, 'state');
-    setLight("5", { "hue": hueValue }, 'state');
+    setLight("6", { "hue": hueValue }, 'state');
   }
 
   if (recog.resultString.includes("orange") || recog.resultString.includes("Orange")) {
     let hueValue = 48 * 180;
     setLight("4", { "hue": hueValue }, 'state');
-    setLight("5", { "hue": hueValue }, 'state');
+    setLight("6", { "hue": hueValue }, 'state');
   }
 
   if (recog.resultString.includes("red") || recog.resultString.includes("Red")) {
     let hueValue = 356 * 180;
     setLight("4", { "hue": hueValue }, 'state');
-    setLight("5", { "hue": hueValue }, 'state');
+    setLight("6", { "hue": hueValue }, 'state');
   }
 
   if (recog.resultString.includes("yellow") || recog.resultString.includes("Yellow")) {
     let hueValue = 59 * 180;
     setLight("4", { "hue": hueValue }, 'state');
-    setLight("5", { "hue": hueValue }, 'state');
+    setLight("6", { "hue": hueValue }, 'state');
   }
 
   if (recog.resultString.includes("pink") || recog.resultString.includes("Pink")) {
     let hueValue = 305 * 180;
     setLight("4", { "hue": hueValue }, 'state');
-    setLight("5", { "hue": hueValue }, 'state');
+    setLight("6", { "hue": hueValue }, 'state');
   }
 
   if (recog.resultString.includes("my day")) {
     let hueValue = 42 * 180;
     setLight("4", { "hue": hueValue }, 'state');
-    setLight("5", { "hue": hueValue }, 'state');
+    setLight("6", { "hue": hueValue }, 'state');
   }
 }
 
